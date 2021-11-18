@@ -1,0 +1,113 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:gameshow/app_builder.dart';
+import 'package:gameshow/config/config_drawer.dart';
+import 'config/config.dart';
+import 'games/maze/homescreen.dart';
+import 'games/tictactoe/homescreen.dart';
+import 'games/explorerAI/homescreen.dart';
+import 'generated/l10n.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Config.init();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AppBuilder(
+      (context) {
+        return MaterialApp(
+          title: 'Game Show',
+          themeMode: Config.getTheme(),
+          theme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => ScreenSelector(),
+            '/tictactoe': (context) => TictactoeHomeScreen(),
+            '/maze': (context) => MazeHomeScreen(),
+            '/explorerAI': (context) => ExplorerHomeScreen(),
+          },
+          localizationsDelegates: [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          locale: Config.getLanguage() == null
+              ? null
+              : Locale(Config.getLanguage()!),
+          supportedLocales: S.delegate.supportedLocales,
+        );
+      },
+    );
+  }
+}
+
+class ScreenSelector extends StatefulWidget {
+  ScreenSelector({Key? key}) : super(key: key);
+
+  @override
+  _ScreenSelectoreState createState() => _ScreenSelectoreState();
+}
+
+class _ScreenSelectoreState extends State<ScreenSelector> {
+  @override
+  Widget build(BuildContext context) {
+    Map<String, String> widgetsRoutes = {
+      S.of(context).TicTacToe: '/tictactoe',
+      S.of(context).mazeSolver: '/maze',
+      S.of(context).explorerAI: '/explorerAI',
+    };
+    List<String> items = [
+      S.of(context).TicTacToe,
+      S.of(context).mazeSolver,
+      S.of(context).explorerAI,
+    ];
+    List<Color> colours = [
+      Colors.red,
+      Colors.green,
+      Colors.blue,
+      Colors.amber,
+      Colors.brown,
+      Colors.deepPurple,
+    ];
+
+    return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 70 * Config.getSizeFactor(),
+          title: Text(
+            S.of(context).selectGame,
+            textScaleFactor: Config.getSizeFactor() * 1.3,
+          ),
+        ),
+        drawer: ConfigDrawer(this.setState),
+        body: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, widgetsRoutes[items[index]] as String);
+                },
+                child: Ink(
+                  padding: EdgeInsets.all(Config.getSizeFactor() * 5),
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(Config.getSizeFactor() * 10),
+                    color: colours[index % colours.length],
+                  ),
+                  child: Center(
+                    child: Text(
+                      items[index],
+                      textScaleFactor: Config.getSizeFactor() * 2,
+                    ),
+                  ),
+                ),
+              );
+            }));
+  }
+}
