@@ -43,9 +43,9 @@ flutter:
     - assets/
 
 flutter_icons:
-  ios: true
-  andorid: "launcher_icon" 
-  image_path: "assets/icon/icon.png"
+  ios: false
+  andorid: true 
+  image_path: "assets/icon/1024.png"
   
 flutter_intl:
   enabled: true

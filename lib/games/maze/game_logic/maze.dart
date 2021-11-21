@@ -8,6 +8,11 @@ import 'player.dart';
 class Coordinate {
   int x, y;
   Coordinate(this.x, this.y);
+
+  get i => y;
+
+  get j => x;
+
   bool operator ==(Object other) =>
       other is Coordinate && x == other.x && y == other.y;
 
