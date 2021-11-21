@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Cell extends ChangeNotifier {
   bool up, down, left, right; //true = there is a wall

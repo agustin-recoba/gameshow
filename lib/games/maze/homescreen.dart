@@ -42,47 +42,68 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
         title: Text(S.of(context).mazeSolver,
             textScaleFactor: Config.getSizeFactor() * 1.2),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
+      body: Stack(children: [
+        LayoutBuilder(
+          builder: (context, constraints) => GestureDetector(
+            onScaleStart: (details) {
+              _baseHorizontalFactor = _mazeWidth * 1.0;
+              _baseVerticalFactor = _mazeHeight * 1.0;
+            },
+            onScaleEnd: (_) {
               reDrawMaze();
-            });
-          },
-          child: Icon(Icons.refresh)),
-      body: LayoutBuilder(
-        builder: (context, constraints) => GestureDetector(
-          onScaleStart: (details) {
-            _baseHorizontalFactor = _mazeWidth * 1.0;
-            _baseVerticalFactor = _mazeHeight * 1.0;
-          },
-          onScaleEnd: (_) {
-            reDrawMaze();
-          },
-          onScaleUpdate: (details) {
-            setState(() {
-              int _newHeight =
-                  (_baseVerticalFactor * details.verticalScale).floor();
-              int _newWidth =
-                  (_baseHorizontalFactor * details.horizontalScale).floor();
+            },
+            onScaleUpdate: (details) {
+              setState(() {
+                int _newHeight =
+                    (_baseVerticalFactor * details.verticalScale).floor();
+                int _newWidth =
+                    (_baseHorizontalFactor * details.horizontalScale).floor();
 
-              if ((_newHeight * maze.cellSize < constraints.maxHeight) &&
-                  _newHeight > 4) {
-                _mazeHeight = _newHeight;
-              }
-              if ((_newWidth * maze.cellSize < constraints.maxWidth) &&
-                  _newHeight > 2) {
-                _mazeWidth = _newWidth;
-              }
-              reDrawMazeOutline();
-            });
-          },
-          child: Container(
-            height: constraints.maxHeight,
-            width: constraints.maxWidth,
-            child: maze,
+                if ((_newHeight * maze.cellSize < constraints.maxHeight) &&
+                    _newHeight > 4) {
+                  _mazeHeight = _newHeight;
+                }
+                if ((_newWidth * maze.cellSize < constraints.maxWidth) &&
+                    _newHeight > 2) {
+                  _mazeWidth = _newWidth;
+                }
+                reDrawMazeOutline();
+              });
+            },
+            child: Container(
+              height: constraints.maxHeight,
+              width: constraints.maxWidth,
+              child: maze,
+            ),
           ),
         ),
-      ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FloatingActionButton(
+                    heroTag: "btn1",
+                    onPressed: () {
+                      setState(() {
+                        reDrawMaze();
+                      });
+                    },
+                    child: Icon(Icons.refresh)),
+                FloatingActionButton(
+                  heroTag: "btn2",
+                  onPressed: () {
+                    maze.maze.solveMaze();
+                  },
+                  child: Icon(Icons.search),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }

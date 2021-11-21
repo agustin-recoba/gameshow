@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:collection';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
+import 'package:collection/collection.dart';
+
+import 'package:flutter/material.dart';
 
 import 'cell.dart';
 import 'player.dart';
@@ -9,15 +13,18 @@ class Coordinate {
   int x, y;
   Coordinate(this.x, this.y);
 
-  get i => y;
+  get i => x;
 
-  get j => x;
+  get j => y;
 
   bool operator ==(Object other) =>
       other is Coordinate && x == other.x && y == other.y;
 
   @override
   int get hashCode => super.hashCode + x + y;
+
+  @override
+  String toString() => '($x, $y)';
 }
 
 class Maze {
@@ -210,4 +217,74 @@ class Maze {
     cells[i][j].setRight(false);
     if (j <= width - 1) cells[i][j + 1].setLeft(false);
   }
+
+  void solveMaze() async {
+    if (compleated.value && !player.solved) {
+      List<List<_info>> mazeInfo = List.generate(
+        height,
+        (_) => List.generate(
+          width,
+          (__) => _info(999999, null, false),
+        ),
+      );
+      mazeInfo[player.i][player.j].distance = 0;
+      PriorityQueue<Coordinate> priQueue = PriorityQueue<Coordinate>(
+        (a, b) => mazeInfo[a.i][a.j].distance - mazeInfo[b.i][b.j].distance,
+      );
+      priQueue.add(Coordinate(player.i, player.j));
+      while (priQueue.isNotEmpty) {
+        Coordinate u = priQueue.removeFirst();
+        mazeInfo[u.i][u.j].visited = true;
+        neighbors(u).forEach((v) {
+          if (!mazeInfo[v.i][v.j].visited) {
+            if (mazeInfo[v.i][v.j].distance > mazeInfo[u.i][u.j].distance + 1) {
+              mazeInfo[v.i][v.j].distance = mazeInfo[u.i][u.j].distance + 1;
+              mazeInfo[v.i][v.j].parent = u;
+              priQueue.add(v);
+            }
+          }
+        });
+      }
+      Queue<Coordinate> path = Queue<Coordinate>();
+      Coordinate? current = Coordinate(end_i, end_j);
+
+      while (current != null) {
+        path.addFirst(current);
+        current = mazeInfo[current.i][current.j].parent;
+      }
+
+      int dur = (3000 / path.length).round();
+
+      while (path.isNotEmpty) {
+        await Future.delayed(Duration(milliseconds: dur), () {
+          Coordinate pos = path.removeFirst();
+          player.moveTo(pos.i, pos.j);
+        });
+      }
+    }
+  }
+
+  List<Coordinate> neighbors(Coordinate current) {
+    List<Coordinate> neighbors = [];
+    if (!cells[current.i][current.j].up) {
+      neighbors.add(Coordinate(current.i - 1, current.j));
+    }
+    if (!cells[current.i][current.j].down) {
+      neighbors.add(Coordinate(current.i + 1, current.j));
+    }
+    if (!cells[current.i][current.j].left) {
+      neighbors.add(Coordinate(current.i, current.j - 1));
+    }
+    if (!cells[current.i][current.j].right) {
+      neighbors.add(Coordinate(current.i, current.j + 1));
+    }
+    return neighbors;
+  }
+}
+
+class _info {
+  int distance;
+  Coordinate? parent;
+  bool visited;
+  _info(this.distance, this.parent, this.visited);
 }

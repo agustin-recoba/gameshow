@@ -31,69 +31,65 @@ class MazeWidget extends StatefulWidget {
 class _MazeWidgetState extends State<MazeWidget> {
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: widget.maze.compleated,
-        builder: (context, error, child) {
-          return LayoutBuilder(builder: (context, constraints) {
-            return GestureDetector(
-              onTap: () {
-                if (!widget.maze.compleated.value) {
-                  widget.maze.generateMaze();
-                }
-              },
-              onVerticalDragEnd: (details) {
-                if (widget.maze.compleated.value &&
-                    !widget.maze.player.solved &&
-                    widget.maze.compleated.value &&
-                    details.primaryVelocity! < 0)
-                  widget.maze.player.moveUp();
-                else if (widget.maze.compleated.value &&
-                    !widget.maze.player.solved &&
-                    widget.maze.compleated.value &&
-                    details.primaryVelocity! > 0) widget.maze.player.moveDown();
-              },
-              onHorizontalDragEnd: (details) {
-                if (widget.maze.compleated.value &&
-                    !widget.maze.player.solved &&
-                    widget.maze.compleated.value &&
-                    details.primaryVelocity! > 0)
-                  widget.maze.player.moveRigth();
-                else if (widget.maze.compleated.value &&
-                    !widget.maze.player.solved &&
-                    widget.maze.compleated.value &&
-                    details.primaryVelocity! < 0) widget.maze.player.moveLeft();
-              },
-              child: Stack(
-                children: [
-                  AnimatedBuilder(
-                      animation: widget.maze.player,
-                      builder: (_, __) {
-                        return Container(
-                          height: constraints.maxHeight,
-                          width: constraints.maxWidth,
-                          color: widget.maze.compleated.value &&
-                                  widget.maze.player.solved
-                              ? Colors.green
-                              : Colors.transparent,
-                        );
-                      }),
-                  Column(
+    return LayoutBuilder(builder: (context, constraints) {
+      return GestureDetector(
+        onTap: () {
+          if (!widget.maze.compleated.value) {
+            widget.maze.generateMaze();
+          }
+        },
+        onVerticalDragEnd: (details) {
+          if (widget.maze.compleated.value &&
+              !widget.maze.player.solved &&
+              widget.maze.compleated.value &&
+              details.primaryVelocity! < 0)
+            widget.maze.player.moveUp();
+          else if (widget.maze.compleated.value &&
+              !widget.maze.player.solved &&
+              widget.maze.compleated.value &&
+              details.primaryVelocity! > 0) widget.maze.player.moveDown();
+        },
+        onHorizontalDragEnd: (details) {
+          if (widget.maze.compleated.value &&
+              !widget.maze.player.solved &&
+              widget.maze.compleated.value &&
+              details.primaryVelocity! > 0)
+            widget.maze.player.moveRigth();
+          else if (widget.maze.compleated.value &&
+              !widget.maze.player.solved &&
+              widget.maze.compleated.value &&
+              details.primaryVelocity! < 0) widget.maze.player.moveLeft();
+        },
+        child: Stack(
+          children: [
+            AnimatedBuilder(
+                animation: widget.maze.player,
+                builder: (_, __) {
+                  return Container(
+                    height: constraints.maxHeight,
+                    width: constraints.maxWidth,
+                    color: widget.maze.compleated.value &&
+                            widget.maze.player.solved
+                        ? Colors.green.withOpacity(0.3)
+                        : Colors.transparent,
+                  );
+                }),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int i = 0; i < widget.height; i++)
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      for (int i = 0; i < widget.height; i++)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            for (int j = 0; j < widget.width; j++)
-                              CellWidget(widget.maze.cells[i][j], widget),
-                          ],
-                        )
+                      for (int j = 0; j < widget.width; j++)
+                        CellWidget(widget.maze.cells[i][j], widget),
                     ],
-                  ),
-                ],
-              ),
-            );
-          });
-        });
+                  )
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

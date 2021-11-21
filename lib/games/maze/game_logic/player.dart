@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'maze.dart';
 
@@ -81,5 +81,15 @@ class MazePlayer extends ChangeNotifier {
       maze.cells[i][j].setHadPlayer(true);
       updateSolvedAndPath();
     }
+  }
+
+  void moveTo(int i, int j) {
+    path.add(Coordinate(this.i, this.j));
+    maze.cells[this.i][this.j].setHasPlayer(false);
+    this.i = i;
+    this.j = j;
+    maze.cells[this.i][this.j].setHasPlayer(true);
+    maze.cells[this.i][this.j].setHadPlayer(true);
+    updateSolvedAndPath();
   }
 }
