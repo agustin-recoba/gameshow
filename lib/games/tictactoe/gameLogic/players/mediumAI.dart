@@ -1,11 +1,14 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/foundation.dart';
 import '../game.dart';
 import 'easyAI.dart';
 import 'player.dart';
 
-class mediumAI extends Player {
-  mediumAI(String symbol) : super(symbol);
+class MediumAI extends Player {
+  MediumAI(String symbol) : super(symbol);
 
+  @override
   void makeMove(Game game) {
     List<List<List<int>>> possibleLines = [
       [
@@ -50,39 +53,38 @@ class mediumAI extends Player {
       ]
     ];
 
-    String player = this.getSymbol();
+    String player = getSymbol();
 
-    if (this.possibleWin(game)) {
+    if (possibleWin(game)) {
       for (int i = 0; i < 8; i++) {
-        if (this.possibleWinningLine(game, possibleLines[i])) {
+        if (possibleWinningLine(game, possibleLines[i])) {
           for (int j = 0; j < 3; j++) {
-            if (game.positions[possibleLines[i][j][0]]
-                    [possibleLines[i][j][1]] ==
+            if (game.positions
+                    .getElem(possibleLines[i][j][0], possibleLines[i][j][1]) ==
                 '_') {
-              game.positions[possibleLines[i][j][0]][possibleLines[i][j][1]] =
-                  player;
+              game.positions.setElem(
+                  possibleLines[i][j][0], possibleLines[i][j][1], player);
             }
           }
           break;
         }
       }
-    } else if (this.possibleLoss(game)) {
-      print('a');
+    } else if (possibleLoss(game)) {
       for (int i = 0; i < 8; i++) {
-        if (this.possibleLosingLine(game, possibleLines[i])) {
+        if (possibleLosingLine(game, possibleLines[i])) {
           for (int j = 0; j < 3; j++) {
-            if (game.positions[possibleLines[i][j][0]]
-                    [possibleLines[i][j][1]] ==
+            if (game.positions
+                    .getElem(possibleLines[i][j][0], possibleLines[i][j][1]) ==
                 '_') {
-              game.positions[possibleLines[i][j][0]][possibleLines[i][j][1]] =
-                  player;
+              game.positions.setElem(
+                  possibleLines[i][j][0], possibleLines[i][j][1], player);
             }
           }
           break;
         }
       }
     } else {
-      easyAI easy = new easyAI(this.getSymbol());
+      EasyAI easy = EasyAI(getSymbol());
       easy.makeMove(game);
     }
   }
@@ -94,7 +96,7 @@ class mediumAI extends Player {
   }
 
   bool possibleWin(Game game) {
-    List<String> win = [this.getSymbol(), this.getSymbol(), '_'];
+    List<String> win = [getSymbol(), getSymbol(), '_'];
     return equalMultiSet(
             [game.positions[0][0], game.positions[1][0], game.positions[2][0]],
             win) ||
@@ -122,52 +124,68 @@ class mediumAI extends Player {
   }
 
   bool possibleLoss(Game game) {
-    String player = this.getSymbol() == 'X' ? 'O' : 'X';
+    String player = getSymbol() == 'X' ? 'O' : 'X';
     List<String> win = [player, player, '_'];
-    return equalMultiSet(
-            [game.positions[0][0], game.positions[1][0], game.positions[2][0]],
-            win) ||
-        equalMultiSet(
-            [game.positions[0][1], game.positions[1][1], game.positions[2][1]],
-            win) ||
-        equalMultiSet(
-            [game.positions[0][2], game.positions[1][2], game.positions[2][2]],
-            win) ||
-        equalMultiSet(
-            [game.positions[0][0], game.positions[0][1], game.positions[0][2]],
-            win) ||
-        equalMultiSet(
-            [game.positions[1][0], game.positions[1][1], game.positions[1][2]],
-            win) ||
-        equalMultiSet(
-            [game.positions[2][0], game.positions[2][1], game.positions[2][2]],
-            win) ||
-        equalMultiSet(
-            [game.positions[0][0], game.positions[1][1], game.positions[2][2]],
-            win) ||
-        equalMultiSet(
-            [game.positions[0][2], game.positions[1][1], game.positions[2][0]],
-            win);
+    return equalMultiSet([
+          game.positions.getElem(0, 0),
+          game.positions.getElem(1, 0),
+          game.positions.getElem(2, 0)
+        ], win) ||
+        equalMultiSet([
+          game.positions.getElem(0, 1),
+          game.positions.getElem(1, 1),
+          game.positions.getElem(2, 1)
+        ], win) ||
+        equalMultiSet([
+          game.positions.getElem(0, 2),
+          game.positions.getElem(1, 2),
+          game.positions.getElem(2, 2)
+        ], win) ||
+        equalMultiSet([
+          game.positions.getElem(0, 0),
+          game.positions.getElem(0, 1),
+          game.positions.getElem(0, 2)
+        ], win) ||
+        equalMultiSet([
+          game.positions.getElem(1, 0),
+          game.positions.getElem(1, 1),
+          game.positions.getElem(1, 2)
+        ], win) ||
+        equalMultiSet([
+          game.positions.getElem(2, 0),
+          game.positions.getElem(2, 1),
+          game.positions.getElem(2, 2)
+        ], win) ||
+        equalMultiSet([
+          game.positions.getElem(0, 0),
+          game.positions.getElem(1, 1),
+          game.positions.getElem(2, 2)
+        ], win) ||
+        equalMultiSet([
+          game.positions.getElem(0, 2),
+          game.positions.getElem(1, 1),
+          game.positions.getElem(2, 0)
+        ], win);
   }
 
   bool possibleWinningLine(Game game, List<List<int>> line) {
     return equalMultiSet([
-      game.positions[line[0][0]][line[0][1]],
-      game.positions[line[1][0]][line[1][1]],
-      game.positions[line[2][0]][line[2][1]]
+      game.positions.getElem(line[0][0], line[0][1]),
+      game.positions.getElem(line[1][0], line[1][1]),
+      game.positions.getElem(line[2][0], line[2][1])
     ], [
-      this.getSymbol(),
-      this.getSymbol(),
+      getSymbol(),
+      getSymbol(),
       '_'
     ]);
   }
 
   bool possibleLosingLine(Game game, List<List<int>> line) {
-    String player = this.getSymbol() == 'X' ? 'O' : 'X';
+    String player = getSymbol() == 'X' ? 'O' : 'X';
     return equalMultiSet([
-      game.positions[line[0][0]][line[0][1]],
-      game.positions[line[1][0]][line[1][1]],
-      game.positions[line[2][0]][line[2][1]]
+      game.positions.getElem(line[0][0], line[0][1]),
+      game.positions.getElem(line[1][0], line[1][1]),
+      game.positions.getElem(line[2][0], line[2][1])
     ], [
       player,
       player,

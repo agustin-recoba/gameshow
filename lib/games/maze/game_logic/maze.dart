@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
@@ -5,6 +7,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 
 import 'package:flutter/material.dart';
+import 'package:gameshow/helper_classes/matrix.dart';
 
 import 'cell.dart';
 import 'player.dart';
@@ -17,6 +20,7 @@ class Coordinate {
 
   get j => y;
 
+  @override
   bool operator ==(Object other) =>
       other is Coordinate && x == other.x && y == other.y;
 
@@ -31,7 +35,7 @@ class Maze {
   int height, width;
   ValueNotifier<bool> compleated = ValueNotifier(false);
 
-  late List<List<Cell>> cells;
+  late Matrix<Cell> cells;
   late MazePlayer player;
   late int start_i;
   late int start_j;
@@ -39,53 +43,47 @@ class Maze {
   late int end_j;
 
   Maze(this.height, this.width) {
-    cells = List.generate(
-      height,
-      (i) => List.generate(
+    cells = Matrix(
+        height,
         width,
-        (j) => Cell(
-          i == 0 ? true : false,
-          i == height - 1 ? true : false,
-          j == 0 ? true : false,
-          j == width - 1 ? true : false,
-        ),
-      ),
-    );
+        (i, j) => Cell(
+              i == 0 ? true : false,
+              i == height - 1 ? true : false,
+              j == 0 ? true : false,
+              j == width - 1 ? true : false,
+            ));
     end_i = Random().nextInt(height);
     end_j = Random().nextInt(width);
     start_i = Random().nextInt(height);
     start_j = Random().nextInt(width);
-    this.player = MazePlayer(start_i, start_j, end_i, end_j, this);
+    player = MazePlayer(start_i, start_j, end_i, end_j, this);
   }
 
   void reset() {
     compleated.value = false;
-    cells = List.generate(
-      height,
-      (i) => List.generate(
+    cells = Matrix(
+        height,
         width,
-        (j) => Cell(
-          i == 0 ? true : false,
-          i == height - 1 ? true : false,
-          j == 0 ? true : false,
-          j == width - 1 ? true : false,
-        ),
-      ),
-    );
+        (i, j) => Cell(
+              i == 0 ? true : false,
+              i == height - 1 ? true : false,
+              j == 0 ? true : false,
+              j == width - 1 ? true : false,
+            ));
     end_i = Random().nextInt(height);
     end_j = Random().nextInt(width);
     start_i = Random().nextInt(height);
     start_j = Random().nextInt(width);
-    this.player = MazePlayer(start_i, start_j, end_i, end_j, this);
+    player = MazePlayer(start_i, start_j, end_i, end_j, this);
   }
 
   void generateMaze() {
-    this.build(0, height - 1, 0, width - 1);
+    build(0, height - 1, 0, width - 1);
 
-    cells[start_i][start_j].setStart(true);
-    cells[start_i][start_j].setHasPlayer(true);
-    cells[start_i][start_j].setHadPlayer(true);
-    cells[end_i][end_j].setEnd(true);
+    cells.getElem(start_i, start_j).setStart(true);
+    cells.getElem(start_i, start_j).setHasPlayer(true);
+    cells.getElem(start_i, start_j).setHadPlayer(true);
+    cells.getElem(end_i, end_j).setEnd(true);
     compleated.value = true;
   }
 
@@ -134,25 +132,25 @@ class Maze {
       deleteWallRigth(opening, verticalLine);
     }
 
-    this.build(
+    build(
       rowStart,
       horizontalLine,
       colStart,
       verticalLine,
     );
-    this.build(
+    build(
       horizontalLine + 1,
       rowEnd,
       colStart,
       verticalLine,
     );
-    this.build(
+    build(
       rowStart,
       horizontalLine,
       verticalLine + 1,
       colEnd,
     );
-    this.build(
+    build(
       horizontalLine + 1,
       rowEnd,
       verticalLine + 1,
@@ -162,84 +160,80 @@ class Maze {
 
   Maze cleanCopy() {
     Maze maze = Maze(height, width);
-    maze.cells = List.generate(
-      height,
-      (i) => List.generate(
+    maze.cells = Matrix(
+        height,
         width,
-        (j) => Cell(
-          cells[i][j].up,
-          cells[i][j].down,
-          cells[i][j].left,
-          cells[i][j].right,
-        ),
-      ),
-    );
+        (i, j) => Cell(
+              i == 0 ? true : false,
+              i == height - 1 ? true : false,
+              j == 0 ? true : false,
+              j == width - 1 ? true : false,
+            ));
     maze.compleated = compleated;
     return maze;
   }
 
   void setWallUp(int i, int j) {
-    cells[i][j].setUp(true);
-    if (i >= 1) cells[i - 1][j].setDown(true);
+    cells.getElem(i, j).setUp(true);
+    if (i >= 1) cells.getElem(i - 1, j).setDown(true);
   }
 
   void deleteWallUp(int i, int j) {
-    cells[i][j].setUp(false);
-    if (i >= 1) cells[i - 1][j].setDown(false);
+    cells.getElem(i, j).setUp(false);
+    if (i >= 1) cells.getElem(i - 1, j).setDown(false);
   }
 
   void setWallDown(int i, int j) {
-    cells[i][j].setDown(true);
-    if (i < height - 1) cells[i + 1][j].setUp(true);
+    cells.getElem(i, j).setDown(true);
+    if (i < height - 1) cells.getElem(i + 1, j).setUp(true);
   }
 
   void deleteWallDown(int i, int j) {
-    cells[i][j].setDown(false);
-    if (i < height - 1) cells[i + 1][j].setUp(false);
+    cells.getElem(i, j).setDown(false);
+    if (i < height - 1) cells.getElem(i + 1, j).setUp(false);
   }
 
   void setWallLeft(int i, int j) {
-    cells[i][j].setLeft(true);
-    if (j >= 1) cells[i][j - 1].setRight(true);
+    cells.getElem(i, j).setLeft(true);
+    if (j >= 1) cells.getElem(i, j - 1).setRight(true);
   }
 
   void deleteWallLeft(int i, int j) {
-    cells[i][j].setLeft(false);
-    if (j >= 1) cells[i][j - 1].setRight(false);
+    cells.getElem(i, j).setLeft(false);
+    if (j >= 1) cells.getElem(i, j - 1).setRight(false);
   }
 
   void setWallRigth(int i, int j) {
-    cells[i][j].setRight(true);
-    if (j <= width - 1) cells[i][j + 1].setLeft(true);
+    cells.getElem(i, j).setRight(true);
+    if (j <= width - 1) cells.getElem(i, j + 1).setLeft(true);
   }
 
   void deleteWallRigth(int i, int j) {
-    cells[i][j].setRight(false);
-    if (j <= width - 1) cells[i][j + 1].setLeft(false);
+    cells.getElem(i, j).setRight(false);
+    if (j <= width - 1) cells.getElem(i, j + 1).setLeft(false);
   }
 
   void solveMaze() async {
     if (compleated.value && !player.solved) {
-      List<List<_info>> mazeInfo = List.generate(
-        height,
-        (_) => List.generate(
-          width,
-          (__) => _info(999999, null, false),
-        ),
-      );
-      mazeInfo[player.i][player.j].distance = 0;
+      Matrix<_Info> mazeInfo =
+          Matrix(height, width, (_, __) => _Info(999999, null, false));
+      mazeInfo.getElem(player.i, player.j).distance = 0;
       PriorityQueue<Coordinate> priQueue = PriorityQueue<Coordinate>(
-        (a, b) => mazeInfo[a.i][a.j].distance - mazeInfo[b.i][b.j].distance,
+        (a, b) =>
+            mazeInfo.getElem(a.i, a.j).distance -
+            mazeInfo.getElem(b.i, b.j).distance,
       );
       priQueue.add(Coordinate(player.i, player.j));
       while (priQueue.isNotEmpty) {
         Coordinate u = priQueue.removeFirst();
-        mazeInfo[u.i][u.j].visited = true;
+        mazeInfo.getElem(u.i, u.j).visited = true;
         neighbors(u).forEach((v) {
-          if (!mazeInfo[v.i][v.j].visited) {
-            if (mazeInfo[v.i][v.j].distance > mazeInfo[u.i][u.j].distance + 1) {
-              mazeInfo[v.i][v.j].distance = mazeInfo[u.i][u.j].distance + 1;
-              mazeInfo[v.i][v.j].parent = u;
+          if (!mazeInfo.getElem(v.i, v.j).visited) {
+            if (mazeInfo.getElem(v.i, v.j).distance >
+                mazeInfo.getElem(u.i, u.j).distance + 1) {
+              mazeInfo.getElem(v.i, v.j).distance =
+                  mazeInfo.getElem(u.i, u.j).distance + 1;
+              mazeInfo.getElem(v.i, v.j).parent = u;
               priQueue.add(v);
             }
           }
@@ -250,13 +244,11 @@ class Maze {
 
       while (current != null) {
         path.addFirst(current);
-        current = mazeInfo[current.i][current.j].parent;
+        current = mazeInfo.getElem(current.i, current.j).parent;
       }
 
-      int dur = (3000 / path.length).round();
-
       while (path.isNotEmpty) {
-        await Future.delayed(Duration(milliseconds: dur), () {
+        await Future.delayed(Duration(milliseconds: path.length), () {
           Coordinate pos = path.removeFirst();
           player.moveTo(pos.i, pos.j);
         });
@@ -266,25 +258,25 @@ class Maze {
 
   List<Coordinate> neighbors(Coordinate current) {
     List<Coordinate> neighbors = [];
-    if (!cells[current.i][current.j].up) {
+    if (!cells.getElem(current.i, current.j).up) {
       neighbors.add(Coordinate(current.i - 1, current.j));
     }
-    if (!cells[current.i][current.j].down) {
+    if (!cells.getElem(current.i, current.j).down) {
       neighbors.add(Coordinate(current.i + 1, current.j));
     }
-    if (!cells[current.i][current.j].left) {
+    if (!cells.getElem(current.i, current.j).left) {
       neighbors.add(Coordinate(current.i, current.j - 1));
     }
-    if (!cells[current.i][current.j].right) {
+    if (!cells.getElem(current.i, current.j).right) {
       neighbors.add(Coordinate(current.i, current.j + 1));
     }
     return neighbors;
   }
 }
 
-class _info {
+class _Info {
   int distance;
   Coordinate? parent;
   bool visited;
-  _info(this.distance, this.parent, this.visited);
+  _Info(this.distance, this.parent, this.visited);
 }

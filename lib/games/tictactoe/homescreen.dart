@@ -5,7 +5,7 @@ import 'package:gameshow/generated/l10n.dart';
 import 'board.dart';
 
 class TictactoeHomeScreen extends StatefulWidget {
-  TictactoeHomeScreen({Key? key}) : super(key: key);
+  const TictactoeHomeScreen({Key? key}) : super(key: key);
 
   @override
   TictactoeHomeScreenState createState() => TictactoeHomeScreenState();
@@ -16,12 +16,12 @@ class TictactoeHomeScreenState extends State<TictactoeHomeScreen> {
   Widget build(BuildContext context) {
     Widget board = GameBoard(Config.getSizeFactor() * 2);
     return Scaffold(
-      drawer: ConfigDrawer(this.setState),
+      drawer: ConfigDrawer(setState),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {});
           },
-          child: Icon(Icons.refresh)),
+          child: const Icon(Icons.refresh)),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         board,
       ]),
