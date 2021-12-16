@@ -5,7 +5,7 @@ import 'package:gameshow/generated/l10n.dart';
 import 'maze_widget.dart';
 
 class MazeHomeScreen extends StatefulWidget {
-  MazeHomeScreen({Key? key}) : super(key: key);
+  const MazeHomeScreen({Key? key}) : super(key: key);
 
   @override
   MazeHomeScreenState createState() => MazeHomeScreenState();
@@ -19,6 +19,7 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
   int _mazeWidth = 7;
   late MazeWidget maze;
 
+  @override
   void initState() {
     super.initState();
     reDrawMaze();
@@ -36,7 +37,7 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: ConfigDrawer(this.setState),
+      drawer: ConfigDrawer(setState),
       appBar: AppBar(
         toolbarHeight: 70 * Config.getSizeFactor(),
         title: Text(S.of(context).mazeSolver,
@@ -70,7 +71,7 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
                 reDrawMazeOutline();
               });
             },
-            child: Container(
+            child: SizedBox(
               height: constraints.maxHeight,
               width: constraints.maxWidth,
               child: maze,
@@ -91,13 +92,13 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
                         reDrawMaze();
                       });
                     },
-                    child: Icon(Icons.refresh)),
+                    child: const Icon(Icons.refresh)),
                 FloatingActionButton(
                   heroTag: "btn2",
                   onPressed: () {
                     maze.maze.solveMaze();
                   },
-                  child: Icon(Icons.search),
+                  child: const Icon(Icons.search),
                 ),
               ],
             ),

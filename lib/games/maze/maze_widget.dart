@@ -42,23 +42,27 @@ class _MazeWidgetState extends State<MazeWidget> {
           if (widget.maze.compleated.value &&
               !widget.maze.player.solved &&
               widget.maze.compleated.value &&
-              details.primaryVelocity! < 0)
+              details.primaryVelocity! < 0) {
             widget.maze.player.moveUp();
-          else if (widget.maze.compleated.value &&
+          } else if (widget.maze.compleated.value &&
               !widget.maze.player.solved &&
               widget.maze.compleated.value &&
-              details.primaryVelocity! > 0) widget.maze.player.moveDown();
+              details.primaryVelocity! > 0) {
+            widget.maze.player.moveDown();
+          }
         },
         onHorizontalDragEnd: (details) {
           if (widget.maze.compleated.value &&
               !widget.maze.player.solved &&
               widget.maze.compleated.value &&
-              details.primaryVelocity! > 0)
+              details.primaryVelocity! > 0) {
             widget.maze.player.moveRigth();
-          else if (widget.maze.compleated.value &&
+          } else if (widget.maze.compleated.value &&
               !widget.maze.player.solved &&
               widget.maze.compleated.value &&
-              details.primaryVelocity! < 0) widget.maze.player.moveLeft();
+              details.primaryVelocity! < 0) {
+            widget.maze.player.moveLeft();
+          }
         },
         child: Stack(
           children: [

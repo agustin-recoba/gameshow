@@ -6,7 +6,7 @@ import 'config.dart';
 
 class ConfigDrawer extends StatefulWidget {
   final void Function(void Function()) parentSetState;
-  ConfigDrawer(this.parentSetState, {Key? key}) : super(key: key);
+  const ConfigDrawer(this.parentSetState, {Key? key}) : super(key: key);
 
   @override
   _ConfigDrawerState createState() => _ConfigDrawerState();
@@ -77,7 +77,7 @@ class _ConfigDrawerState extends State<ConfigDrawer> {
                 S.of(context).themeeSelect + ':',
                 textScaleFactor: Config.getSizeFactor() * 2,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               DropdownButton<ThemeMode>(
@@ -111,7 +111,7 @@ class _ConfigDrawerState extends State<ConfigDrawer> {
                 S.of(context).languageSelect + ':',
                 textScaleFactor: Config.getSizeFactor() * 2,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               DropdownButton<String>(

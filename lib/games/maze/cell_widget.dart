@@ -32,13 +32,11 @@ class CellWidget extends StatefulWidget {
 class _CellWidgetState extends State<CellWidget> {
   @override
   Widget build(BuildContext context) {
-    Cell cell = widget.cell;
-
     return AnimatedBuilder(
         animation: widget.cell,
         builder: (context, child) {
           bool path = widget.cell.hadPlayer;
-          bool player = cell.hasPlayer;
+          bool player = widget.cell.hasPlayer;
           return Container(
             height: widget.mazeWidget.cellSize,
             width: widget.mazeWidget.cellSize,
@@ -48,11 +46,11 @@ class _CellWidgetState extends State<CellWidget> {
                         widget.mazeWidget.wallThikness
                     : widget.mazeWidget.cellSize -
                         2 * widget.mazeWidget.wallThikness,
-                color: cell.isStart
+                color: widget.cell.isStart
                     ? Colors.green
                     : player
                         ? Colors.amber
-                        : cell.isEnd
+                        : widget.cell.isEnd
                             ? Colors.red
                             : path
                                 ? Colors.amber[100]
