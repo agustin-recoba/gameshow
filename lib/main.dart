@@ -3,7 +3,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:gameshow/app_builder.dart';
 import 'package:gameshow/config/config_drawer.dart';
 import 'config/config.dart';
+import 'games/ascii_pictures/homescreen.dart';
 import 'games/maze/homescreen.dart';
+import 'games/secret_santa/homescreen.dart';
 import 'games/tictactoe/homescreen.dart';
 import 'games/explorerAI/homescreen.dart';
 import 'generated/l10n.dart';
@@ -11,10 +13,12 @@ import 'generated/l10n.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Config.init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AppBuilder(
@@ -22,16 +26,20 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Game Show',
           themeMode: Config.getTheme(),
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
+          theme: ThemeData.light().copyWith(
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)),
+          darkTheme: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)),
           initialRoute: '/',
           routes: {
-            '/': (context) => ScreenSelector(),
-            '/tictactoe': (context) => TictactoeHomeScreen(),
-            '/maze': (context) => MazeHomeScreen(),
-            '/explorerAI': (context) => ExplorerHomeScreen(),
+            '/': (context) => const ScreenSelector(),
+            '/tictactoe': (context) => const TictactoeHomeScreen(),
+            '/maze': (context) => const MazeHomeScreen(),
+            '/explorerAI': (context) => const ExplorerHomeScreen(),
+            '/ascciPictures': (context) => const AsciiPicturesHomeScreen(),
+            '/secretSanta': (context) => const SecretSantaHomeScreen(),
           },
-          localizationsDelegates: [
+          localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
@@ -48,7 +56,7 @@ class MyApp extends StatelessWidget {
 }
 
 class ScreenSelector extends StatefulWidget {
-  ScreenSelector({Key? key}) : super(key: key);
+  const ScreenSelector({Key? key}) : super(key: key);
 
   @override
   _ScreenSelectoreState createState() => _ScreenSelectoreState();
@@ -61,11 +69,15 @@ class _ScreenSelectoreState extends State<ScreenSelector> {
       S.of(context).TicTacToe: '/tictactoe',
       S.of(context).mazeSolver: '/maze',
       S.of(context).explorerAI: '/explorerAI',
+      S.of(context).ascciTransformation: '/ascciPictures',
+      S.of(context).secretSanta: '/secretSanta',
     };
     List<String> items = [
       S.of(context).TicTacToe,
       S.of(context).mazeSolver,
       S.of(context).explorerAI,
+      S.of(context).ascciTransformation,
+      S.of(context).secretSanta,
     ];
     List<Color> colours = [
       Colors.red,
@@ -84,7 +96,7 @@ class _ScreenSelectoreState extends State<ScreenSelector> {
             textScaleFactor: Config.getSizeFactor() * 1.3,
           ),
         ),
-        drawer: ConfigDrawer(this.setState),
+        drawer: ConfigDrawer(setState),
         body: ListView.builder(
             itemCount: items.length,
             itemBuilder: (context, index) {

@@ -1,7 +1,17 @@
-{
-    "TicTacToe": "TicTacToe",
+{   
     "selectGame": "Select a game:",
-    "readyPlayerOne":"Ready Player One?",
+
+    "settings" : "Settings",
+    "itemSizeSelect" : "Item size",
+    "themeeSelect" : "App theme",
+    "dark" : "Dark",
+    "ligth" : "Ligth",
+    "system" : "System",
+    "languageSelect" : "Language",
+    "english" : "English",
+    "spanish" : "Spanish",
+
+    "TicTacToe": "TicTacToe",
     "turnText": "It's {turn}'s turn",
     "board" : "Board",
     "user" : "Player 2",
@@ -12,17 +22,14 @@
     "oponent" : "Oponent",
     "whoWins" : "{player} wins!",
     "draw" : "Draw",
-    "pageHomeWelcomeRole": "{role, select, admin {Hi admin!} manager {Hi manager!} other {Hi visitor!}}",
-    "pageNotificationsCount": "{howMany, plural, one{1 message} other{{howMany} messages}}",
+    "readyPlayerOne":"Ready Player One?",
+
     "mazeSolver" : "Maze Solver",
+
     "explorerAI" : "Explore with AI",
-    "settings" : "Settings",
-    "itemSizeSelect" : "Item size",
-    "themeeSelect" : "App theme",
-    "dark" : "Dark",
-    "ligth" : "Ligth",
-    "system" : "System",
-    "languageSelect" : "Language",
-    "english" : "English",
-    "spanish" : "Spanish"
+
+    "secretSanta" : "Secret Santa",
+
+    "ascciTransformation" : "Ascci Transformation" 
+
 }   

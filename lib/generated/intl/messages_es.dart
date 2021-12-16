@@ -20,22 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
-  static String m0(role) => "${Intl.select(role, {
-            'admin': 'Hi admin!',
-            'manager': 'Hi manager!',
-            'other': 'Hi visitor!',
-          })}";
+  static String m0(turn) => "Es el turno de ${turn}";
 
-  static String m1(howMany) =>
-      "${Intl.plural(howMany, one: '1 message', other: '${howMany} messages')}";
-
-  static String m2(turn) => "Es el turno de ${turn}";
-
-  static String m3(player) => "¡${player} ganó!";
+  static String m1(player) => "¡${player} ganó!";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "TicTacToe": MessageLookupByLibrary.simpleMessage("Ta-Te-Tí"),
+        "ascciTransformation":
+            MessageLookupByLibrary.simpleMessage("Transformación ascci"),
         "board": MessageLookupByLibrary.simpleMessage("Tablero"),
         "dark": MessageLookupByLibrary.simpleMessage("Oscuro"),
         "difficultyEasy": MessageLookupByLibrary.simpleMessage("CPU fácil"),
@@ -51,18 +44,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "mazeSolver":
             MessageLookupByLibrary.simpleMessage("Resolver laberintos"),
         "oponent": MessageLookupByLibrary.simpleMessage("Oponente"),
-        "pageHomeWelcomeRole": m0,
-        "pageNotificationsCount": m1,
         "readyPlayerOne":
             MessageLookupByLibrary.simpleMessage("¿Listo para jugar?"),
+        "secretSanta": MessageLookupByLibrary.simpleMessage("Amigo invisible"),
         "selectGame":
             MessageLookupByLibrary.simpleMessage("Seleccionar juego:"),
         "settings": MessageLookupByLibrary.simpleMessage("Configuraciones"),
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
+        "startOver": MessageLookupByLibrary.simpleMessage("Start over"),
         "system": MessageLookupByLibrary.simpleMessage("Sistema"),
         "themeeSelect": MessageLookupByLibrary.simpleMessage("Tema de la app"),
-        "turnText": m2,
+        "turnText": m0,
         "user": MessageLookupByLibrary.simpleMessage("Jugador 2"),
-        "whoWins": m3
+        "whoWins": m1
       };
 }

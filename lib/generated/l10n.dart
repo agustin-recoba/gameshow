@@ -50,16 +50,6 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `TicTacToe`
-  String get TicTacToe {
-    return Intl.message(
-      'TicTacToe',
-      name: 'TicTacToe',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Select a game:`
   String get selectGame {
     return Intl.message(
@@ -70,11 +60,101 @@ class S {
     );
   }
 
-  /// `Ready Player One?`
-  String get readyPlayerOne {
+  /// `Settings`
+  String get settings {
     return Intl.message(
-      'Ready Player One?',
-      name: 'readyPlayerOne',
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Item size`
+  String get itemSizeSelect {
+    return Intl.message(
+      'Item size',
+      name: 'itemSizeSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App theme`
+  String get themeeSelect {
+    return Intl.message(
+      'App theme',
+      name: 'themeeSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get dark {
+    return Intl.message(
+      'Dark',
+      name: 'dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ligth`
+  String get ligth {
+    return Intl.message(
+      'Ligth',
+      name: 'ligth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get system {
+    return Intl.message(
+      'System',
+      name: 'system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get languageSelect {
+    return Intl.message(
+      'Language',
+      name: 'languageSelect',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spanish`
+  String get spanish {
+    return Intl.message(
+      'Spanish',
+      name: 'spanish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TicTacToe`
+  String get TicTacToe {
+    return Intl.message(
+      'TicTacToe',
+      name: 'TicTacToe',
       desc: '',
       args: [],
     );
@@ -180,30 +260,13 @@ class S {
     );
   }
 
-  /// `{role, select, admin {Hi admin!} manager {Hi manager!} other {Hi visitor!}}`
-  String pageHomeWelcomeRole(Object role) {
-    return Intl.select(
-      role,
-      {
-        'admin': 'Hi admin!',
-        'manager': 'Hi manager!',
-        'other': 'Hi visitor!',
-      },
-      name: 'pageHomeWelcomeRole',
+  /// `Ready Player One?`
+  String get readyPlayerOne {
+    return Intl.message(
+      'Ready Player One?',
+      name: 'readyPlayerOne',
       desc: '',
-      args: [role],
-    );
-  }
-
-  /// `{howMany, plural, one{1 message} other{{howMany} messages}}`
-  String pageNotificationsCount(num howMany) {
-    return Intl.plural(
-      howMany,
-      one: '1 message',
-      other: '$howMany messages',
-      name: 'pageNotificationsCount',
-      desc: '',
-      args: [howMany],
+      args: [],
     );
   }
 
@@ -227,91 +290,21 @@ class S {
     );
   }
 
-  /// `Settings`
-  String get settings {
+  /// `Secret Santa`
+  String get secretSanta {
     return Intl.message(
-      'Settings',
-      name: 'settings',
+      'Secret Santa',
+      name: 'secretSanta',
       desc: '',
       args: [],
     );
   }
 
-  /// `Item size`
-  String get itemSizeSelect {
+  /// `Ascci Transformation`
+  String get ascciTransformation {
     return Intl.message(
-      'Item size',
-      name: 'itemSizeSelect',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `App theme`
-  String get themeeSelect {
-    return Intl.message(
-      'App theme',
-      name: 'themeeSelect',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Dark`
-  String get dark {
-    return Intl.message(
-      'Dark',
-      name: 'dark',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ligth`
-  String get ligth {
-    return Intl.message(
-      'Ligth',
-      name: 'ligth',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `System`
-  String get system {
-    return Intl.message(
-      'System',
-      name: 'system',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Language`
-  String get languageSelect {
-    return Intl.message(
-      'Language',
-      name: 'languageSelect',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `English`
-  String get english {
-    return Intl.message(
-      'English',
-      name: 'english',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Spanish`
-  String get spanish {
-    return Intl.message(
-      'Spanish',
-      name: 'spanish',
+      'Ascci Transformation',
+      name: 'ascciTransformation',
       desc: '',
       args: [],
     );
