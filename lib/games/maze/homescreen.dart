@@ -15,8 +15,12 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
   double _baseHorizontalFactor = 1.0;
   double _baseVerticalFactor = 1.0;
 
+  final ValueNotifier _constraintsUpdated = ValueNotifier(false);
+
   int _mazeHeight = 20;
+  int _maxMazeHeight = 20;
   int _mazeWidth = 7;
+  int _maxMazeWidth = 7;
   late MazeWidget maze;
 
   @override
@@ -37,7 +41,8 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: ConfigDrawer(setState),
+      drawer: ConfigDrawer(setState,
+          pageSpecificSettings: mazeSolverSettings(context)),
       appBar: AppBar(
         toolbarHeight: 70 * Config.getSizeFactor(),
         title: Text(S.of(context).mazeSolver,
@@ -45,38 +50,41 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
       ),
       body: Stack(children: [
         LayoutBuilder(
-          builder: (context, constraints) => GestureDetector(
-            onScaleStart: (details) {
-              _baseHorizontalFactor = _mazeWidth * 1.0;
-              _baseVerticalFactor = _mazeHeight * 1.0;
-            },
-            onScaleEnd: (_) {
-              reDrawMaze();
-            },
-            onScaleUpdate: (details) {
-              setState(() {
-                int _newHeight =
-                    (_baseVerticalFactor * details.verticalScale).floor();
-                int _newWidth =
-                    (_baseHorizontalFactor * details.horizontalScale).floor();
+          builder: (context, constraints) {
+            _maxMazeHeight = constraints.maxHeight ~/ maze.cellSize;
+            _maxMazeWidth = constraints.maxWidth ~/ maze.cellSize;
+            _constraintsUpdated.value = true;
+            return GestureDetector(
+              onScaleStart: (details) {
+                _baseHorizontalFactor = _mazeWidth * 1.0;
+                _baseVerticalFactor = _mazeHeight * 1.0;
+              },
+              onScaleEnd: (_) {
+                reDrawMaze();
+              },
+              onScaleUpdate: (details) {
+                setState(() {
+                  int _newHeight =
+                      (_baseVerticalFactor * details.verticalScale).floor();
+                  int _newWidth =
+                      (_baseHorizontalFactor * details.horizontalScale).floor();
 
-                if ((_newHeight * maze.cellSize < constraints.maxHeight) &&
-                    _newHeight > 4) {
-                  _mazeHeight = _newHeight;
-                }
-                if ((_newWidth * maze.cellSize < constraints.maxWidth) &&
-                    _newHeight > 2) {
-                  _mazeWidth = _newWidth;
-                }
-                reDrawMazeOutline();
-              });
-            },
-            child: SizedBox(
-              height: constraints.maxHeight,
-              width: constraints.maxWidth,
-              child: maze,
-            ),
-          ),
+                  if ((_newHeight <= _maxMazeHeight) && _newHeight > 4) {
+                    _mazeHeight = _newHeight;
+                  }
+                  if ((_newWidth <= _maxMazeWidth) && _newHeight > 2) {
+                    _mazeWidth = _newWidth;
+                  }
+                  reDrawMazeOutline();
+                });
+              },
+              child: SizedBox(
+                height: constraints.maxHeight,
+                width: constraints.maxWidth,
+                child: maze,
+              ),
+            );
+          },
         ),
         Align(
           alignment: Alignment.bottomCenter,
@@ -106,5 +114,44 @@ class MazeHomeScreenState extends State<MazeHomeScreen> {
         ),
       ]),
     );
+  }
+
+  List<Widget> mazeSolverSettings(BuildContext context) {
+    return [
+      Text(S.of(context).mazeHeight + ': '),
+      AnimatedBuilder(
+          animation: _constraintsUpdated,
+          builder: (_, __) => Slider(
+                value: _mazeHeight.toDouble(),
+                onChanged: (value) {
+                  setState(() {
+                    _mazeHeight = value.toInt();
+                    reDrawMazeOutline();
+                  });
+                },
+                onChangeEnd: (value) {
+                  reDrawMaze();
+                },
+                min: 5,
+                max: _maxMazeHeight.toDouble(),
+              )),
+      Text(S.of(context).mazeWidth + ': '),
+      AnimatedBuilder(
+          animation: _constraintsUpdated,
+          builder: (_, __) => Slider(
+                value: _mazeWidth.toDouble(),
+                onChanged: (value) {
+                  setState(() {
+                    _mazeWidth = value.toInt();
+                    reDrawMazeOutline();
+                  });
+                },
+                onChangeEnd: (value) {
+                  reDrawMaze();
+                },
+                min: 5,
+                max: _maxMazeWidth.toDouble(),
+              )),
+    ];
   }
 }

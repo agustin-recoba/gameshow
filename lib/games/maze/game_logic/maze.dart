@@ -247,8 +247,10 @@ class Maze {
         current = mazeInfo.getElem(current.i, current.j).parent;
       }
 
+      int time = path.length * 10;
+
       while (path.isNotEmpty) {
-        await Future.delayed(Duration(milliseconds: path.length), () {
+        await Future.delayed(Duration(microseconds: time), () {
           Coordinate pos = path.removeFirst();
           player.moveTo(pos.i, pos.j);
         });
