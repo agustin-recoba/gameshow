@@ -27,23 +27,27 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "TicTacToe": MessageLookupByLibrary.simpleMessage("Ta-Te-Tí"),
-        "ascciTransformation":
-            MessageLookupByLibrary.simpleMessage("Transformación ascci"),
         "board": MessageLookupByLibrary.simpleMessage("Tablero"),
         "dark": MessageLookupByLibrary.simpleMessage("Oscuro"),
         "difficultyEasy": MessageLookupByLibrary.simpleMessage("CPU fácil"),
         "difficultyHard": MessageLookupByLibrary.simpleMessage("CPU difícil"),
         "difficultyMedium": MessageLookupByLibrary.simpleMessage("CPU medio"),
         "draw": MessageLookupByLibrary.simpleMessage("Empate"),
+        "drawerExtraSettings": MessageLookupByLibrary.simpleMessage(
+            "Configuraciones de este juego"),
         "english": MessageLookupByLibrary.simpleMessage("Inglés"),
         "explorerAI": MessageLookupByLibrary.simpleMessage("Explorar con IA"),
         "itemSizeSelect":
             MessageLookupByLibrary.simpleMessage("Tamaño de los items"),
         "languageSelect": MessageLookupByLibrary.simpleMessage("Idioma"),
-        "ligth": MessageLookupByLibrary.simpleMessage("Claro"),
+        "mazeHeight":
+            MessageLookupByLibrary.simpleMessage("Altura del laberinto"),
         "mazeSolver":
             MessageLookupByLibrary.simpleMessage("Resolver laberintos"),
-        "oponent": MessageLookupByLibrary.simpleMessage("Oponente"),
+        "mazeWidth":
+            MessageLookupByLibrary.simpleMessage("Ancho del laberinto"),
+        "moreChars": MessageLookupByLibrary.simpleMessage("Más carácteres"),
+        "precision": MessageLookupByLibrary.simpleMessage("Precisión"),
         "readyPlayerOne":
             MessageLookupByLibrary.simpleMessage("¿Listo para jugar?"),
         "secretSanta": MessageLookupByLibrary.simpleMessage("Amigo invisible"),
@@ -53,7 +57,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "startOver": MessageLookupByLibrary.simpleMessage("Start over"),
         "system": MessageLookupByLibrary.simpleMessage("Sistema"),
-        "themeeSelect": MessageLookupByLibrary.simpleMessage("Tema de la app"),
         "turnText": m0,
         "user": MessageLookupByLibrary.simpleMessage("Jugador 2"),
         "whoWins": m1

@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Game specific settings`
+  String get drawerExtraSettings {
+    return Intl.message(
+      'Game specific settings',
+      name: 'drawerExtraSettings',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Item size`
   String get itemSizeSelect {
     return Intl.message(
@@ -81,10 +91,10 @@ class S {
   }
 
   /// `App theme`
-  String get themeeSelect {
+  String get themeSelect {
     return Intl.message(
       'App theme',
-      name: 'themeeSelect',
+      name: 'themeSelect',
       desc: '',
       args: [],
     );
@@ -100,11 +110,11 @@ class S {
     );
   }
 
-  /// `Ligth`
-  String get ligth {
+  /// `Light`
+  String get light {
     return Intl.message(
-      'Ligth',
-      name: 'ligth',
+      'Light',
+      name: 'light',
       desc: '',
       args: [],
     );
@@ -230,11 +240,11 @@ class S {
     );
   }
 
-  /// `Oponent`
-  String get oponent {
+  /// `Opponent`
+  String get opponent {
     return Intl.message(
-      'Oponent',
-      name: 'oponent',
+      'Opponent',
+      name: 'opponent',
       desc: '',
       args: [],
     );
@@ -280,6 +290,26 @@ class S {
     );
   }
 
+  /// `Maze height`
+  String get mazeHeight {
+    return Intl.message(
+      'Maze height',
+      name: 'mazeHeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Maze width`
+  String get mazeWidth {
+    return Intl.message(
+      'Maze width',
+      name: 'mazeWidth',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Explore with AI`
   String get explorerAI {
     return Intl.message(
@@ -300,11 +330,31 @@ class S {
     );
   }
 
-  /// `Ascci Transformation`
-  String get ascciTransformation {
+  /// `Ascii Transformation`
+  String get asciiTransformation {
     return Intl.message(
-      'Ascci Transformation',
-      name: 'ascciTransformation',
+      'Ascii Transformation',
+      name: 'asciiTransformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Precision`
+  String get precision {
+    return Intl.message(
+      'Precision',
+      name: 'precision',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `More characters`
+  String get moreChars {
+    return Intl.message(
+      'More characters',
+      name: 'moreChars',
       desc: '',
       args: [],
     );

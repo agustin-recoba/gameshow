@@ -6,7 +6,9 @@ import 'config.dart';
 
 class ConfigDrawer extends StatefulWidget {
   final void Function(void Function()) parentSetState;
-  const ConfigDrawer(this.parentSetState, {Key? key}) : super(key: key);
+  final List<Widget>? pageSpecificSettings;
+  const ConfigDrawer(this.parentSetState, {Key? key, this.pageSpecificSettings})
+      : super(key: key);
 
   @override
   _ConfigDrawerState createState() => _ConfigDrawerState();
@@ -27,7 +29,7 @@ class _ConfigDrawerState extends State<ConfigDrawer> {
   Widget build(BuildContext context) {
     Map<ThemeMode, String> themeString = {
       ThemeMode.dark: S.of(context).dark,
-      ThemeMode.light: S.of(context).ligth,
+      ThemeMode.light: S.of(context).light,
       ThemeMode.system: S.of(context).system
     };
 
@@ -74,7 +76,7 @@ class _ConfigDrawerState extends State<ConfigDrawer> {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
-                S.of(context).themeeSelect + ':',
+                S.of(context).themeSelect + ':',
                 textScaleFactor: Config.getSizeFactor() * 2,
               ),
               const SizedBox(
@@ -136,7 +138,30 @@ class _ConfigDrawerState extends State<ConfigDrawer> {
               )
             ],
           ),
-        )
+        ),
+        if (widget.pageSpecificSettings != null) ...[
+          const SizedBox(
+            height: 20,
+            child: Divider(
+              thickness: 1,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(S.of(context).drawerExtraSettings + ': ',
+                textScaleFactor: Config.getSizeFactor() * 2),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: widget.pageSpecificSettings ?? [],
+            ),
+          ),
+        ],
       ],
     ));
   }

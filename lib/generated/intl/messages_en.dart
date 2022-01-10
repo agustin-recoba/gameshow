@@ -27,21 +27,27 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "TicTacToe": MessageLookupByLibrary.simpleMessage("TicTacToe"),
-        "ascciTransformation":
-            MessageLookupByLibrary.simpleMessage("Ascci Transformation"),
+        "asciiTransformation":
+            MessageLookupByLibrary.simpleMessage("Ascii Transformation"),
         "board": MessageLookupByLibrary.simpleMessage("Board"),
         "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "difficultyEasy": MessageLookupByLibrary.simpleMessage("CPU easy"),
         "difficultyHard": MessageLookupByLibrary.simpleMessage("CPU hard"),
         "difficultyMedium": MessageLookupByLibrary.simpleMessage("CPU medium"),
         "draw": MessageLookupByLibrary.simpleMessage("Draw"),
+        "drawerExtraSettings":
+            MessageLookupByLibrary.simpleMessage("Game specific settings"),
         "english": MessageLookupByLibrary.simpleMessage("English"),
         "explorerAI": MessageLookupByLibrary.simpleMessage("Explore with AI"),
         "itemSizeSelect": MessageLookupByLibrary.simpleMessage("Item size"),
         "languageSelect": MessageLookupByLibrary.simpleMessage("Language"),
-        "ligth": MessageLookupByLibrary.simpleMessage("Ligth"),
+        "light": MessageLookupByLibrary.simpleMessage("Light"),
+        "mazeHeight": MessageLookupByLibrary.simpleMessage("Maze height"),
         "mazeSolver": MessageLookupByLibrary.simpleMessage("Maze Solver"),
-        "oponent": MessageLookupByLibrary.simpleMessage("Oponent"),
+        "mazeWidth": MessageLookupByLibrary.simpleMessage("Maze width"),
+        "moreChars": MessageLookupByLibrary.simpleMessage("More characters"),
+        "opponent": MessageLookupByLibrary.simpleMessage("Opponent"),
+        "precision": MessageLookupByLibrary.simpleMessage("Precision"),
         "readyPlayerOne":
             MessageLookupByLibrary.simpleMessage("Ready Player One?"),
         "secretSanta": MessageLookupByLibrary.simpleMessage("Secret Santa"),
@@ -50,7 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "spanish": MessageLookupByLibrary.simpleMessage("Spanish"),
         "startOver": MessageLookupByLibrary.simpleMessage("Start over"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
-        "themeeSelect": MessageLookupByLibrary.simpleMessage("App theme"),
+        "themeSelect": MessageLookupByLibrary.simpleMessage("App theme"),
         "turnText": m0,
         "user": MessageLookupByLibrary.simpleMessage("Player 2"),
         "whoWins": m1

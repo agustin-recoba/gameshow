@@ -2,10 +2,11 @@
     "selectGame": "Select a game:",
 
     "settings" : "Settings",
+    "drawerExtraSettings" : "Game specific settings",
     "itemSizeSelect" : "Item size",
-    "themeeSelect" : "App theme",
+    "themeSelect" : "App theme",
     "dark" : "Dark",
-    "ligth" : "Ligth",
+    "light" : "Light",
     "system" : "System",
     "languageSelect" : "Language",
     "english" : "English",
@@ -19,17 +20,21 @@
     "difficultyMedium" : "CPU medium",
     "difficultyHard" : "CPU hard",
     "startOver" : "Start over",
-    "oponent" : "Oponent",
+    "opponent" : "Opponent",
     "whoWins" : "{player} wins!",
     "draw" : "Draw",
     "readyPlayerOne":"Ready Player One?",
 
     "mazeSolver" : "Maze Solver",
+    "mazeHeight" : "Maze height",
+    "mazeWidth" : "Maze width",
 
     "explorerAI" : "Explore with AI",
 
     "secretSanta" : "Secret Santa",
 
-    "ascciTransformation" : "Ascci Transformation" 
+    "asciiTransformation" : "Ascii Transformation" ,
+    "precision" : "Precision",
+    "moreChars" : "More characters"
 
 }   

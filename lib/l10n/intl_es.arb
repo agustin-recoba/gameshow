@@ -2,6 +2,7 @@
     "selectGame": "Seleccionar juego:",
 
     "settings" : "Configuraciones",
+    "drawerExtraSettings" : "Configuraciones de este juego",
     "itemSizeSelect" : "Tamaño de los items",
     "themeeSelect" : "Tema de la app",
     "dark" : "Oscuro",
@@ -25,10 +26,14 @@
     "readyPlayerOne":"¿Listo para jugar?",
 
     "mazeSolver" : "Resolver laberintos",
+    "mazeHeight" : "Altura del laberinto",
+    "mazeWidth" : "Ancho del laberinto",
 
     "explorerAI" : "Explorar con IA",
 
     "secretSanta" : "Amigo invisible",
 
-    "ascciTransformation" : "Transformación ascci"
+    "ascciTransformation" : "Transformación ascci",
+    "precision" : "Precisión",
+    "moreChars" : "Más carácteres"
 }
