@@ -65,20 +65,21 @@ class ScreenSelector extends StatefulWidget {
 class _ScreenSelectoreState extends State<ScreenSelector> {
   @override
   Widget build(BuildContext context) {
+    List<String> gameTitles = [
+      S.of(context).TicTacToe,
+      S.of(context).mazeSolver,
+      S.of(context).explorerAI,
+      S.of(context).asciiTransformation,
+      S.of(context).secretSanta,
+    ];
     Map<String, String> widgetsRoutes = {
       S.of(context).TicTacToe: '/tictactoe',
       S.of(context).mazeSolver: '/maze',
       S.of(context).explorerAI: '/explorerAI',
-      S.of(context).ascciTransformation: '/ascciPictures',
+      S.of(context).asciiTransformation: '/ascciPictures',
       S.of(context).secretSanta: '/secretSanta',
     };
-    List<String> items = [
-      S.of(context).TicTacToe,
-      S.of(context).mazeSolver,
-      S.of(context).explorerAI,
-      S.of(context).ascciTransformation,
-      S.of(context).secretSanta,
-    ];
+
     List<Color> colours = [
       Colors.red,
       Colors.green,
@@ -96,30 +97,31 @@ class _ScreenSelectoreState extends State<ScreenSelector> {
             textScaleFactor: Config.getSizeFactor() * 1.3,
           ),
         ),
-        drawer: ConfigDrawer(setState),
-        body: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, widgetsRoutes[items[index]] as String);
-                },
-                child: Ink(
-                  padding: EdgeInsets.all(Config.getSizeFactor() * 5),
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(Config.getSizeFactor() * 10),
-                    color: colours[index % colours.length],
-                  ),
-                  child: Center(
-                    child: Text(
-                      items[index],
-                      textScaleFactor: Config.getSizeFactor() * 2,
-                    ),
-                  ),
+        drawer: ConfigDrawer(
+          setState,
+        ),
+        body: ListView(children: [
+          for (int index = 0; index < gameTitles.length; index++)
+            ListTile(
+              key: ValueKey(gameTitles[index]),
+              onTap: () {
+                Navigator.pushNamed(
+                    context, widgetsRoutes[gameTitles[index]] as String);
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              tileColor: colours[index],
+              title: Center(
+                child: Text(
+                  gameTitles[index],
+                  textScaleFactor: Config.getSizeFactor() * 2,
                 ),
-              );
-            }));
+              ),
+            )
+        ]));
   }
 }
+
+/* 
+
+*/
