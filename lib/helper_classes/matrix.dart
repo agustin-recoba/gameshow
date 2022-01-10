@@ -2,17 +2,32 @@ class Matrix<E> {
   final int rows;
   final int columns;
   late final List<E> _data;
+  late bool valid;
 
   Matrix(this.rows, this.columns, E Function(int, int) generator) {
-    _data = List.generate(
-        rows * columns, (index) => generator(index ~/ columns, index % columns),
-        growable: false);
+    valid = (rows * columns) > 0;
+    if (valid) {
+      _data = List.generate(rows * columns,
+          (index) => generator(index ~/ columns, index % columns),
+          growable: false);
+    }
   }
 
-  E getElem(int row, int column) => _data[row * columns + column];
+  bool boundsSafe(int i, int j) => i >= 0 && i < rows && j >= 0 && j < columns;
 
-  E setElem(int row, int column, E elem) =>
+  E getElem(int row, int column) {
+    if (valid) {
+      return _data[row * columns + column];
+    } else {
+      throw Exception("Invalid matrix");
+    }
+  }
+
+  setElem(int row, int column, E elem) {
+    if (valid) {
       _data[row * columns + column] = elem;
+    }
+  }
 
   List<E> operator [](int row) =>
       _data.sublist(row * columns, (row + 1) * columns);

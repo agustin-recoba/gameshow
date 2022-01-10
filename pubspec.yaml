@@ -46,6 +46,15 @@ flutter:
 
   assets:
     - assets/
+    - assets/icon/
+    - assets/fonts/
+    - assets/splash_screen/
+    - assets/images/
+
+  fonts:
+   - family: RobotoMono
+     fonts:
+      - asset: assets/fonts/RobotoMono-Regular.ttf
 
 flutter_icons:
   ios: false
