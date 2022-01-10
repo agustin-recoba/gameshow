@@ -48,7 +48,7 @@ class _BoardState extends State<GameBoard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            S.current.oponent + ':',
+            S.current.opponent + ':',
             textScaleFactor: widget.sizeFactor,
           ),
           SizedBox(width: 10 * widget.sizeFactor),
