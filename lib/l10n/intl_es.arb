@@ -4,9 +4,9 @@
     "settings" : "Configuraciones",
     "drawerExtraSettings" : "Configuraciones de este juego",
     "itemSizeSelect" : "Tamaño de los items",
-    "themeeSelect" : "Tema de la app",
+    "themeSelect" : "Tema de la app",
     "dark" : "Oscuro",
-    "ligth" : "Claro",
+    "light" : "Claro",
     "system" : "Sistema",
     "languageSelect" : "Idioma",
     "english" : "Inglés",
@@ -20,7 +20,7 @@
     "difficultyMedium" : "CPU medio",
     "difficultyHard" : "CPU difícil",
     "startOver" : "Start over",
-    "oponent" : "Oponente",
+    "opponent" : "Oponente",
     "whoWins" : "¡{player} ganó!",
     "draw" : "Empate",
     "readyPlayerOne":"¿Listo para jugar?",
@@ -33,7 +33,7 @@
 
     "secretSanta" : "Amigo invisible",
 
-    "ascciTransformation" : "Transformación ascci",
+    "asciiTransformation" : "Transformación ascci",
     "precision" : "Precisión",
     "moreChars" : "Más carácteres"
 }

@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "TicTacToe": MessageLookupByLibrary.simpleMessage("Ta-Te-Tí"),
+        "asciiTransformation":
+            MessageLookupByLibrary.simpleMessage("Transformación ascci"),
         "board": MessageLookupByLibrary.simpleMessage("Tablero"),
         "dark": MessageLookupByLibrary.simpleMessage("Oscuro"),
         "difficultyEasy": MessageLookupByLibrary.simpleMessage("CPU fácil"),
@@ -40,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "itemSizeSelect":
             MessageLookupByLibrary.simpleMessage("Tamaño de los items"),
         "languageSelect": MessageLookupByLibrary.simpleMessage("Idioma"),
+        "light": MessageLookupByLibrary.simpleMessage("Claro"),
         "mazeHeight":
             MessageLookupByLibrary.simpleMessage("Altura del laberinto"),
         "mazeSolver":
@@ -47,6 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mazeWidth":
             MessageLookupByLibrary.simpleMessage("Ancho del laberinto"),
         "moreChars": MessageLookupByLibrary.simpleMessage("Más carácteres"),
+        "opponent": MessageLookupByLibrary.simpleMessage("Oponente"),
         "precision": MessageLookupByLibrary.simpleMessage("Precisión"),
         "readyPlayerOne":
             MessageLookupByLibrary.simpleMessage("¿Listo para jugar?"),
@@ -57,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "spanish": MessageLookupByLibrary.simpleMessage("Español"),
         "startOver": MessageLookupByLibrary.simpleMessage("Start over"),
         "system": MessageLookupByLibrary.simpleMessage("Sistema"),
+        "themeSelect": MessageLookupByLibrary.simpleMessage("Tema de la app"),
         "turnText": m0,
         "user": MessageLookupByLibrary.simpleMessage("Jugador 2"),
         "whoWins": m1
