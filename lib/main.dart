@@ -65,27 +65,26 @@ class ScreenSelector extends StatefulWidget {
 class _ScreenSelectoreState extends State<ScreenSelector> {
   @override
   Widget build(BuildContext context) {
-    List<String> gameTitles = [
+    final List<String> _gameTitles = [
       S.of(context).TicTacToe,
       S.of(context).mazeSolver,
       S.of(context).explorerAI,
       S.of(context).asciiTransformation,
       S.of(context).secretSanta,
     ];
-    Map<String, String> widgetsRoutes = {
-      S.of(context).TicTacToe: '/tictactoe',
-      S.of(context).mazeSolver: '/maze',
-      S.of(context).explorerAI: '/explorerAI',
-      S.of(context).asciiTransformation: '/ascciPictures',
-      S.of(context).secretSanta: '/secretSanta',
-    };
+    final List<String> _widgetsRoutes = [
+      '/tictactoe',
+      '/maze',
+      '/explorerAI',
+      '/ascciPictures',
+      '/secretSanta',
+    ];
 
-    List<Color> colours = [
+    final List<Color> _colours = [
       Colors.red,
       Colors.green,
       Colors.blue,
       Colors.amber,
-      Colors.brown,
       Colors.deepPurple,
     ];
 
@@ -100,25 +99,29 @@ class _ScreenSelectoreState extends State<ScreenSelector> {
         drawer: ConfigDrawer(
           setState,
         ),
-        body: ListView(children: [
-          for (int index = 0; index < gameTitles.length; index++)
-            ListTile(
-              key: ValueKey(gameTitles[index]),
+        body: ListView.builder(
+          itemBuilder: (_, index) => Card(
+            key: ValueKey(_gameTitles[index]),
+            color: _colours[index],
+            elevation: 5,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: ListTile(
               onTap: () {
-                Navigator.pushNamed(
-                    context, widgetsRoutes[gameTitles[index]] as String);
+                Navigator.pushNamed(context, _widgetsRoutes[index]);
               },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              tileColor: colours[index],
-              title: Center(
-                child: Text(
-                  gameTitles[index],
-                  textScaleFactor: Config.getSizeFactor() * 2,
-                ),
+              leading: const Icon(
+                Icons.games,
               ),
-            )
-        ]));
+              title: Text(
+                _gameTitles[index],
+                textScaleFactor: Config.getSizeFactor() * 1.5,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+          ),
+          itemCount: _gameTitles.length,
+        ));
   }
 }
 
