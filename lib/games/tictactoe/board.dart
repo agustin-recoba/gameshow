@@ -17,21 +17,32 @@ class GameBoard extends StatefulWidget {
 
 class _BoardState extends State<GameBoard> {
   _BoardState() {
-    _difficulties = [
-      S.current.user,
-      S.current.difficultyEasy,
-      S.current.difficultyMedium,
-      S.current.difficultyHard,
-    ];
     _selectedDifficulty = S.current.user;
   }
-  late List<String> _difficulties;
+  late List<String> _difficulties = [
+    S.of(context).user,
+    S.of(context).difficultyEasy,
+    S.of(context).difficultyMedium,
+    S.of(context).difficultyHard,
+  ];
   late String _selectedDifficulty;
 
   @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Ink(
-        child: Column(children: [
+    final int index = _difficulties.indexOf(_selectedDifficulty);
+    _difficulties = [
+      S.of(context).user,
+      S.of(context).difficultyEasy,
+      S.of(context).difficultyMedium,
+      S.of(context).difficultyHard,
+    ];
+    _selectedDifficulty = _difficulties[index];
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
         S.current.board + ':',
         textScaleFactor: 1.5 * widget.sizeFactor,
@@ -54,11 +65,13 @@ class _BoardState extends State<GameBoard> {
           SizedBox(width: 10 * widget.sizeFactor),
           DropdownButton(
             value: _selectedDifficulty,
-            onChanged: (String? newValue) {
-              setState(() {
-                _selectedDifficulty = newValue!;
-              });
-            },
+            onChanged: widget.game.countSymbols('X') == 0
+                ? (String? newValue) {
+                    setState(() {
+                      _selectedDifficulty = newValue!;
+                    });
+                  }
+                : null,
             items: _difficulties.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -84,7 +97,7 @@ class _BoardState extends State<GameBoard> {
         maintainSize: true,
         visible: widget.game.isFinished,
       )
-    ]));
+    ]);
   }
 
   Widget _matrix(Game game) {

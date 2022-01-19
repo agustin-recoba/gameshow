@@ -33,42 +33,42 @@ class Game {
     return out;
   }
 
-  bool hasWon(var player) {
+  bool hasWon(String player) {
     return positions.getElem(0, 0) +
                 positions.getElem(1, 0) +
                 positions.getElem(2, 0) ==
-            player * 3 ||
+            player + player + player ||
         positions.getElem(0, 1) +
                 positions.getElem(1, 1) +
                 positions.getElem(2, 1) ==
-            player * 3 ||
+            player + player + player ||
         positions.getElem(0, 2) +
                 positions.getElem(1, 2) +
                 positions.getElem(2, 2) ==
-            player * 3 ||
-        positions.getElem(0, 1) +
+            player + player + player ||
+        positions.getElem(0, 0) +
                 positions.getElem(0, 1) +
                 positions.getElem(0, 2) ==
-            player * 3 ||
+            player + player + player ||
         positions.getElem(1, 0) +
                 positions.getElem(1, 1) +
                 positions.getElem(1, 2) ==
-            player * 3 ||
+            player + player + player ||
         positions.getElem(2, 0) +
                 positions.getElem(2, 1) +
                 positions.getElem(2, 2) ==
-            player * 3 ||
+            player + player + player ||
         positions.getElem(0, 0) +
                 positions.getElem(1, 1) +
                 positions.getElem(2, 2) ==
-            player * 3 ||
+            player + player + player ||
         positions.getElem(0, 2) +
                 positions.getElem(1, 1) +
                 positions.getElem(2, 0) ==
-            player * 3;
+            player + player + player;
   }
 
-  int countSymbols(player) {
+  int countSymbols(String player) {
     int count = 0;
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {

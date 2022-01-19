@@ -14,7 +14,6 @@ class TictactoeHomeScreen extends StatefulWidget {
 class TictactoeHomeScreenState extends State<TictactoeHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    Widget board = GameBoard(Config.getSizeFactor() * 2);
     return Scaffold(
       drawer: ConfigDrawer(setState),
       floatingActionButton: FloatingActionButton(
@@ -22,9 +21,9 @@ class TictactoeHomeScreenState extends State<TictactoeHomeScreen> {
             setState(() {});
           },
           child: const Icon(Icons.refresh)),
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        board,
-      ]),
+      body: Center(
+        child: GameBoard(Config.getSizeFactor() * 2),
+      ),
       appBar: AppBar(
         toolbarHeight: 70 * Config.getSizeFactor(),
         title: Text(S.of(context).TicTacToe,
