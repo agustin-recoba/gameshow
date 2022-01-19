@@ -14,6 +14,8 @@ Work in progress:
 
 See web build here:
     https://agustin-recoba.github.io/gameshow_web/
+    
+![alt text](https://github.com/agustin-recoba/gameshow/blob/main/README%20media/showcase%20animation.gif?raw=true)
 
 
 # Credits:
