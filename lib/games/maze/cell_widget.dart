@@ -12,7 +12,7 @@ class CellWidget extends StatefulWidget {
 
   CellWidget(this.cell, this.mazeWidget, {Key? key}) : super(key: key) {
     _borderSideClosed = BorderSide(
-      width: mazeWidget.wallThikness,
+      width: mazeWidget.wallThickness,
       color: Colors.black,
     );
     _border = Border(
@@ -43,9 +43,9 @@ class _CellWidgetState extends State<CellWidget> {
             child: Icon(Icons.circle,
                 size: player
                     ? widget.mazeWidget.cellSize -
-                        widget.mazeWidget.wallThikness
+                        widget.mazeWidget.wallThickness
                     : widget.mazeWidget.cellSize -
-                        2 * widget.mazeWidget.wallThikness,
+                        2 * widget.mazeWidget.wallThickness,
                 color: widget.cell.isStart
                     ? Colors.green
                     : player

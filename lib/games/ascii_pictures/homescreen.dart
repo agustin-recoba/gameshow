@@ -55,13 +55,13 @@ class AsciiPicturesHomeScreenState extends State<AsciiPicturesHomeScreen> {
               builder: (context, child) {
                 if (processor.ready) {
                   Uint8List? orig = processor.originalImageAsBytes;
-                  Uint8List? newimg = processor.transformedImageAsBytes;
+                  Uint8List? newImg = processor.transformedImageAsBytes;
                   return Column(
                     children: [
                       const Icon(Icons.arrow_downward),
                       Image.memory(orig),
                       const Icon(Icons.arrow_downward),
-                      Image.memory(newimg),
+                      Image.memory(newImg),
                       const Icon(Icons.arrow_downward),
                       AnimatedBuilder(
                           animation: _longString,

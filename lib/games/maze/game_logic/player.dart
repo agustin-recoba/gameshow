@@ -74,7 +74,7 @@ class MazePlayer extends ChangeNotifier {
     }
   }
 
-  void moveRigth() {
+  void moveRight() {
     if (canMoveRight()) {
       path.add(Coordinate(i, j));
       maze.cells[i][j].setHasPlayer(false);

@@ -33,7 +33,7 @@ class Coordinate {
 
 class Maze {
   int height, width;
-  ValueNotifier<bool> compleated = ValueNotifier(false);
+  ValueNotifier<bool> done = ValueNotifier(false);
 
   late Matrix<Cell> cells;
   late MazePlayer player;
@@ -60,7 +60,7 @@ class Maze {
   }
 
   void reset() {
-    compleated.value = false;
+    done.value = false;
     cells = Matrix(
         height,
         width,
@@ -84,7 +84,7 @@ class Maze {
     cells.getElem(start_i, start_j).setHasPlayer(true);
     cells.getElem(start_i, start_j).setHadPlayer(true);
     cells.getElem(end_i, end_j).setEnd(true);
-    compleated.value = true;
+    done.value = true;
   }
 
   int randomInterval(int min, int max) {
@@ -95,9 +95,9 @@ class Maze {
   void build(int rowStart, int rowEnd, int colStart, int colEnd) {
     if ((rowEnd - rowStart) < 1 || (colEnd - colStart) < 1) return;
 
-    //random number betwen rowStart (inc) and rowEnd(exc)
+    //random number between rowStart (inc) and rowEnd(exc)
     int horizontalLine = randomInterval(rowStart, rowEnd);
-    //random number betwen colStart (inc) and colEnd(exc)
+    //random number between colStart (inc) and colEnd(exc)
     int verticalLine = randomInterval(colStart, colEnd);
 
     // draw line
@@ -105,9 +105,9 @@ class Maze {
       setWallDown(horizontalLine, j);
     }
     for (int j = rowStart; j <= rowEnd; j++) {
-      setWallRigth(j, verticalLine);
+      setWallRight(j, verticalLine);
     }
-    // create an opening in 3 of 4 walls and recursivelly call in all 4 sections
+    // create an opening in 3 of 4 walls and recursively call in all 4 sections
     int whichNot = randomInterval(0, 4);
     int opening;
 
@@ -116,7 +116,7 @@ class Maze {
       opening = randomInterval(colStart, verticalLine);
       deleteWallDown(horizontalLine, opening);
     }
-    //rigth
+    //right
     if (whichNot != 1) {
       opening = randomInterval(verticalLine + 1, colEnd);
       deleteWallDown(horizontalLine, opening);
@@ -124,12 +124,12 @@ class Maze {
     //upper
     if (whichNot != 2) {
       opening = randomInterval(rowStart, horizontalLine);
-      deleteWallRigth(opening, verticalLine);
+      deleteWallRight(opening, verticalLine);
     }
     //down
     if (whichNot != 3) {
       opening = randomInterval(horizontalLine + 1, rowEnd);
-      deleteWallRigth(opening, verticalLine);
+      deleteWallRight(opening, verticalLine);
     }
 
     build(
@@ -169,7 +169,7 @@ class Maze {
               j == 0 ? true : false,
               j == width - 1 ? true : false,
             ));
-    maze.compleated = compleated;
+    maze.done = done;
     return maze;
   }
 
@@ -203,18 +203,18 @@ class Maze {
     if (j >= 1) cells.getElem(i, j - 1).setRight(false);
   }
 
-  void setWallRigth(int i, int j) {
+  void setWallRight(int i, int j) {
     cells.getElem(i, j).setRight(true);
     if (j <= width - 1) cells.getElem(i, j + 1).setLeft(true);
   }
 
-  void deleteWallRigth(int i, int j) {
+  void deleteWallRight(int i, int j) {
     cells.getElem(i, j).setRight(false);
     if (j <= width - 1) cells.getElem(i, j + 1).setLeft(false);
   }
 
   void solveMaze() async {
-    if (compleated.value && !player.solved) {
+    if (done.value && !player.solved) {
       Matrix<_Info> mazeInfo =
           Matrix(height, width, (_, __) => _Info(999999, null, false));
       mazeInfo.getElem(player.i, player.j).distance = 0;

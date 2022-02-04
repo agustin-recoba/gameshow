@@ -4,13 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Config {
   static Map themesStrings = {
     ThemeMode.dark: 'dark',
-    ThemeMode.light: 'ligth',
+    ThemeMode.light: 'light',
     ThemeMode.system: 'system',
   };
 
   static Map themeModes = {
     'dark': ThemeMode.dark,
-    'ligth': ThemeMode.light,
+    'light': ThemeMode.light,
     'system': ThemeMode.system,
   };
 

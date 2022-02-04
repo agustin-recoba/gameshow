@@ -12,14 +12,14 @@ class MazeWidget extends StatefulWidget {
   late final double _sizeFactor;
 
   late final double cellSize;
-  late final double wallThikness;
+  late final double wallThickness;
   late final double totalHeight, totalWidth;
 
   MazeWidget(this.height, this.width, {Key? key}) : super(key: key) {
     maze = Maze(height, width);
     _sizeFactor = Config.getSizeFactor();
     cellSize = _sizeFactor * 15.0;
-    wallThikness = cellSize * 0.1;
+    wallThickness = cellSize * 0.1;
     totalHeight = maze.height * cellSize;
     totalWidth = maze.width * cellSize;
   }
@@ -34,32 +34,32 @@ class _MazeWidgetState extends State<MazeWidget> {
     return LayoutBuilder(builder: (context, constraints) {
       return GestureDetector(
         onTap: () {
-          if (!widget.maze.compleated.value) {
+          if (!widget.maze.done.value) {
             widget.maze.generateMaze();
           }
         },
         onVerticalDragEnd: (details) {
-          if (widget.maze.compleated.value &&
+          if (widget.maze.done.value &&
               !widget.maze.player.solved &&
-              widget.maze.compleated.value &&
+              widget.maze.done.value &&
               details.primaryVelocity! < 0) {
             widget.maze.player.moveUp();
-          } else if (widget.maze.compleated.value &&
+          } else if (widget.maze.done.value &&
               !widget.maze.player.solved &&
-              widget.maze.compleated.value &&
+              widget.maze.done.value &&
               details.primaryVelocity! > 0) {
             widget.maze.player.moveDown();
           }
         },
         onHorizontalDragEnd: (details) {
-          if (widget.maze.compleated.value &&
+          if (widget.maze.done.value &&
               !widget.maze.player.solved &&
-              widget.maze.compleated.value &&
+              widget.maze.done.value &&
               details.primaryVelocity! > 0) {
-            widget.maze.player.moveRigth();
-          } else if (widget.maze.compleated.value &&
+            widget.maze.player.moveRight();
+          } else if (widget.maze.done.value &&
               !widget.maze.player.solved &&
-              widget.maze.compleated.value &&
+              widget.maze.done.value &&
               details.primaryVelocity! < 0) {
             widget.maze.player.moveLeft();
           }
@@ -72,8 +72,7 @@ class _MazeWidgetState extends State<MazeWidget> {
                   return Container(
                     height: constraints.maxHeight,
                     width: constraints.maxWidth,
-                    color: widget.maze.compleated.value &&
-                            widget.maze.player.solved
+                    color: widget.maze.done.value && widget.maze.player.solved
                         ? Colors.green.withOpacity(0.3)
                         : Colors.transparent,
                   );

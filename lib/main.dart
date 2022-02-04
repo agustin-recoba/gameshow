@@ -59,10 +59,10 @@ class ScreenSelector extends StatefulWidget {
   const ScreenSelector({Key? key}) : super(key: key);
 
   @override
-  _ScreenSelectoreState createState() => _ScreenSelectoreState();
+  _ScreenSelectorState createState() => _ScreenSelectorState();
 }
 
-class _ScreenSelectoreState extends State<ScreenSelector> {
+class _ScreenSelectorState extends State<ScreenSelector> {
   @override
   Widget build(BuildContext context) {
     final List<String> _gameTitles = [
